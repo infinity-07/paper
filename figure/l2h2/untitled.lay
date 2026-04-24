@@ -1,0 +1,264 @@
+#!MC 1410
+$!VarSet |LFDSFN1| = '"l2h2-200.plt"'
+$!VarSet |LFDSVL1| = '"X" "lambda" "badcell"'
+$!VarSet |LFDSFN2| = '"l2h2-200-reference.plt"'
+$!VarSet |LFDSVL2| = '"X" "lambda" "badcell"'
+$!VarSet |LFDSFN3| = '"l2h2-200.plt"'
+$!VarSet |LFDSVL3| = '"X" "lambda" "badcell"'
+$!SetStyleBase Factory
+$!GlobalPaper 
+  PaperSizeInfo
+    {
+    Letter
+      {
+      Width = 8.5
+      Height = 11
+      LeftHardClipOffset = 0.125
+      RightHardClipOffset = 0.125
+      TopHardClipOffset = 0.125
+      BottomHardClipOffset = 0.125
+      }
+    }
+$!Page 
+  Name = 'Untitled'
+  PaperAttributes
+    {
+    BackgroundColor = White
+    IsTransparent = Yes
+    OrientPortrait = No
+    ShowGrid = Yes
+    ShowRuler = No
+    ShowPaper = No
+    PaperSize = Letter
+    RulerSpacing = OneInch
+    PaperGridSpacing = HalfInch
+    RegionInWorkArea
+      {
+      X1 = 1
+      Y1 = 0.25
+      X2 = 10
+      Y2 = 8.25
+      }
+    }
+### Frame Number 1 ###
+$!ReadDataSet  '|LFDSFN1|'
+  InitialPlotType = XYLine
+  IncludeText = No
+  IncludeGeom = No
+  AssignStrandIDs = Yes
+  VarLoadMode = ByName
+  VarNameList = '|LFDSVL1|'
+$!RemoveVar |LFDSVL1|
+$!RemoveVar |LFDSFN1|
+$!ReadDataSet  '|LFDSFN2|'
+  InitialPlotType = XYLine
+  IncludeText = No
+  IncludeGeom = No
+  ReadDataOption = Append
+  ResetStyle = No
+  AssignStrandIDs = Yes
+  VarLoadMode = ByName
+  VarNameList = '|LFDSVL2|'
+$!RemoveVar |LFDSVL2|
+$!RemoveVar |LFDSFN2|
+$!ReadDataSet  '|LFDSFN3|'
+  InitialPlotType = XYLine
+  IncludeText = No
+  IncludeGeom = No
+  ReadDataOption = Append
+  ResetStyle = No
+  AssignStrandIDs = Yes
+  VarLoadMode = ByName
+  VarNameList = '|LFDSVL3|'
+$!RemoveVar |LFDSVL3|
+$!RemoveVar |LFDSFN3|
+$!FrameLayout 
+  ShowBorder = No
+  ShowHeader = No
+  HeaderColor = Red
+  XYPos
+    {
+    X = 1
+    Y = 0.25
+    }
+  Width = 8
+  Height = 6
+$!ThreeDAxis 
+  AspectRatioLimit = 25
+  BoxAspectRatioLimit = 25
+$!PlotType  = XYLine
+$!FrameName  = 'Frame 001'
+$!GlobalTime 
+  SolutionTime = 0
+$!DeleteLineMaps 
+$!ActiveLineMaps  =  [1-2,4]
+$!GlobalLinePlot 
+  DataLabels
+    {
+    DistanceSkip = 5
+    }
+  Legend
+    {
+    Show = Yes
+    XYPos
+      {
+      X = 75.999
+      Y = 92.595
+      }
+    }
+$!LineMap  [1]
+  Name = 'reference l2h2'
+  Assign
+    {
+    Zone = 2
+    XAxisVar = 1
+    YAxisVar = 2
+    }
+  Lines
+    {
+    Color = Black
+    LineThickness = 0.4
+    }
+  Symbols
+    {
+    Show = No
+    Color = Blue
+    FillColor = Blue
+    }
+  BarCharts
+    {
+    Color = Blue
+    FillColor = Blue
+    }
+  ErrorBars
+    {
+    Color = Blue
+    }
+$!LineMap  [2]
+  Name = 'alpha1'
+  Assign
+    {
+    Zone = 1
+    XAxisVar = 1
+    YAxisVar = 2
+    }
+  Lines
+    {
+    Color = Red
+    LinePattern = Dashed
+    LineThickness = 0.4
+    }
+  Symbols
+    {
+    SymbolShape
+      {
+      GeomShape = Circle
+      }
+    Color = Red
+    FillMode = UseLineColor
+    FillColor = Red
+    Size = 1
+    Skipping = 2
+    }
+  BarCharts
+    {
+    Color = Red
+    FillColor = Red
+    }
+  ErrorBars
+    {
+    Color = Red
+    }
+$!LineMap  [3]
+  Name = '&DV&'
+  Assign
+    {
+    Zone = 1
+    XAxisVar = 1
+    YAxisVar = 3
+    }
+  Lines
+    {
+    Color = Green
+    }
+  Symbols
+    {
+    Color = Green
+    FillColor = Green
+    Size = 1
+    }
+  BarCharts
+    {
+    Color = Green
+    FillColor = Green
+    }
+  ErrorBars
+    {
+    Color = Green
+    }
+$!LineMap  [4]
+  Name = 'l2h2'
+  Assign
+    {
+    Zone = 3
+    XAxisVar = 1
+    YAxisVar = 2
+    }
+  Lines
+    {
+    Color = Blue
+    LinePattern = DashDot
+    LineThickness = 0.4
+    }
+  Symbols
+    {
+    Color = Blue
+    FillMode = UseLineColor
+    FillColor = Custom1
+    Size = 1
+    Skipping = 2
+    }
+  BarCharts
+    {
+    Color = Custom1
+    FillColor = Custom1
+    }
+  ErrorBars
+    {
+    Color = Custom1
+    }
+$!XYLineAxis 
+  DepXToYRatio = 1
+  ViewportPosition
+    {
+    X1 = 20
+    X2 = 95
+    Y2 = 98
+    }
+  ViewportTopSnapTarget = 98
+$!XYLineAxis 
+  XDetail 1
+    {
+    CoordScale = Linear
+    RangeMin = -9.9746599868666407929E-18
+    RangeMax = 1
+    GRSpacing = 0.2
+    }
+$!XYLineAxis 
+  YDetail 1
+    {
+    CoordScale = Log
+    RangeMin = 0.00011403761883759788438
+    RangeMax = 0.00013904586858268520844
+    GRSpacing = 2E-06
+    Title
+      {
+      TitleMode = UseText
+      Offset = 15
+      }
+    }
+$!LinePlotLayers 
+  ShowSymbols = Yes
+$!FrameControl ActivateByNumber
+  Frame = 1
+$!SetStyleBase Config

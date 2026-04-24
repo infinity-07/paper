@@ -1,0 +1,52 @@
+\begin{tikzpicture}[
+    >=Stealth,
+    scale=1.3,
+    wave/.style={very thick, line cap=round},
+    contact/.style={very thick, dashed, line cap=round},
+    axis/.style={->, thick}
+]
+ 
+% === 坐标轴 ===
+\draw[axis] (-4.5, 0) -- (4.8, 0) node[right] {$x$};
+\draw[axis] (0, 0.0) -- (0, 4.8) node[above] {$t$};
+\node[below, font=\large] at (0, 0) {$O$};
+ 
+% === 左激波 S_L ===
+\draw[wave] (0,0) -- (-3.0, 3.8);
+\node[font=\large, above left] at (-3.0, 3.8) {$S_L$};
+ 
+% === 右激波 S_R ===
+\draw[wave] (0,0) -- (3.2, 3.8);
+\node[font=\large, above right] at (3.2, 3.8) {$S_R$};
+ 
+% === 接触间断 S_M（虚线）===
+\draw[contact] (0,0) -- (0.9, 3.8);
+\node[font=\large, above right] at (0.9, 3.8) {$S_*$};
+ 
+% === 区域标注 ===
+\node[font=\Large] at (-3.0, 1.5) {$\bm{Q}_L$};
+\node[font=\Large] at (-1.4, 3.2) {$\bm{Q}_L^*$};  % 左上角移动
+\node[font=\Large] at (1.6,  3.2) {$\bm{Q}_R^*$};
+\node[font=\Large] at ( 3.2, 1.5) {$\bm{Q}_R$};
+ 
+% ===================================================================
+% 四段弧，圆心(0,0)，半径3，顺时针，双向箭头
+% ===================================================================
+ 
+% 弧1: x_neg(-3,0) [180°] --> S_L交点(-1.8589, 2.3546) [128.29°]
+\draw[{Stealth}-{Stealth}, thin] (-3.000000, 0.000000)
+    arc[start angle=180.0000, end angle=128.2902, radius=3];
+ 
+% 弧2: S_L交点(-1.8589, 2.3546) [128.29°] --> S_M交点(0.6914, 2.9192) [76.68°]
+\draw[{Stealth}-{Stealth}, thin] (-1.858933, 2.354648)
+    arc[start angle=128.2902, end angle=76.6755, radius=3];
+ 
+% 弧3: S_M交点(0.6914, 2.9192) [76.68°] --> S_R交点(1.9324, 2.2947) [49.90°]
+\draw[{Stealth}-{Stealth}, thin] (0.691399, 2.919241)
+    arc[start angle=76.6755, end angle=49.8991, radius=3];
+ 
+% 弧4: S_R交点(1.9324, 2.2947) [49.90°] --> x_pos(3,0) [0°]
+\draw[{Stealth}-{Stealth}, thin] (1.932407, 2.294734)
+    arc[start angle=49.8991, end angle=0.0000, radius=3];
+ 
+\end{tikzpicture}

@@ -1,0 +1,49 @@
+% domin2.tex（与 domin1 行列参数对齐）
+\begin{tikzpicture}[
+    scale=0.42,
+    every node/.style={font=\small},
+    gridline/.style={gray!60, very thin},
+    proclabel/.style={font=\normalsize\bfseries, text=brown!70!black},
+    arrowstyle/.style={-{Stealth[length=2.5mm]}, thick, purple!70!black}
+]
+
+\def\r{3}        % 辅助层列数
+\def\NxL{4}      % 内部单元列数（与 domin1 单进程宽度一致）
+\def\NyL{9}      % 行数（与 domin1 完全一致）
+
+% 辅助网格层（灰色）
+\fill[gray!40, opacity=0.85] (0,0)        rectangle (\r,       \NyL);
+\fill[gray!40, opacity=0.85] (\r+\NxL,0)  rectangle (2*\r+\NxL,\NyL);
+
+% 内部单元（蓝色，与 domin1 进程2 完全一致）
+\fill[blue!60, opacity=0.85] (\r,0) rectangle (\r+\NxL, \NyL);
+
+% 网格线
+\foreach \x in {0,...,10} {
+    \draw[gridline] (\x,0) -- (\x,\NyL);
+}
+\foreach \y in {0,...,\NyL} {
+    \draw[gridline] (0,\y) -- (2*\r+\NxL,\y);
+}
+
+% 分隔粗线
+\draw[very thick, black] (\r,0)      -- (\r,\NyL);
+\draw[very thick, black] (\r+\NxL,0) -- (\r+\NxL,\NyL);
+% 外框
+\draw[very thick, black] (0,0) rectangle (2*\r+\NxL, \NyL);
+
+% 标注
+\node[proclabel] at (\r+0.5*\NxL, 0.5*\NyL) {\small 本进程};
+
+% 通信箭头
+\draw[arrowstyle] (-1.8, \NyL/2+0.8) -- (0.4, \NyL/2+0.8)
+    node[midway, above, font=\footnotesize, text=black] {接收};
+\draw[arrowstyle] (\r+0.4, \NyL/2-0.8) -- (-1.8, \NyL/2-0.8)
+    node[midway, above, font=\footnotesize, text=black] {发送};
+\draw[arrowstyle] (\r+\NxL-0.4, \NyL/2+0.8) -- (2*\r+\NxL+1.8, \NyL/2+0.8)
+    node[midway, above, font=\footnotesize, text=black] {发送};
+\draw[arrowstyle] (2*\r+\NxL+1.8, \NyL/2-0.8) -- (\r+\NxL+0.4, \NyL/2-0.8)
+    node[midway, above, font=\footnotesize, text=black] {接收};
+
+
+\end{tikzpicture}

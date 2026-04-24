@@ -1,0 +1,52 @@
+% domin1.tex
+% 沿 x 方向的一维条状区域分解示意图（以 N_p = 3 为例）
+% Requires: \usetikzlibrary{arrows.meta}
+
+\begin{tikzpicture}[
+    scale=0.42,
+    every node/.style={font=\small},
+    gridline/.style={gray!60, very thin},
+    proclabel/.style={font=\Large\bfseries, text=brown!70!black}
+]
+
+% 参数：总网格 12x9，分成 3 个进程（每个进程 4 列）
+\def\Nx{12}
+\def\Ny{9}
+\def\NxLoc{4}   % 12/3 = 4
+
+% 填充三个进程区域（不同颜色）
+\fill[red!70,    opacity=0.85] (0,0)         rectangle (\NxLoc,   \Ny);
+\fill[blue!60,   opacity=0.85] (\NxLoc,0)    rectangle (2*\NxLoc, \Ny);
+\fill[yellow!80, opacity=0.85] (2*\NxLoc,0)  rectangle (3*\NxLoc, \Ny);
+
+% 绘制网格线
+\foreach \x in {0,...,\Nx} {
+    \draw[gridline] (\x,0) -- (\x,\Ny);
+}
+\foreach \y in {0,...,\Ny} {
+    \draw[gridline] (0,\y) -- (\Nx,\y);
+}
+
+% 绘制子区域之间的粗分界线
+\foreach \k in {1,2} {
+    \draw[very thick, black] (\k*\NxLoc,0) -- (\k*\NxLoc,\Ny);
+}
+% 外框
+\draw[very thick, black] (0,0) rectangle (\Nx,\Ny);
+
+% 进程标号
+\node[proclabel] at (0.5*\NxLoc, 0.5*\Ny) {\small 进程 1};
+\node[proclabel] at (1.5*\NxLoc, 0.5*\Ny) {\small 进程 2};
+\node[proclabel] at (2.5*\NxLoc, 0.5*\Ny) {\small 进程 3};
+
+% 坐标轴
+% \draw[-{Stealth[length=2mm]}, thick] (-1.2,-1.2) -- (1.8,-1.2) node[right] {$x$};
+% \draw[-{Stealth[length=2mm]}, thick] (-1.2,-1.2) -- (-1.2,1.8) node[above] {$y$};
+
+% 边界坐标
+% \node[below] at (0,-0.2)   {\small $x_L$};
+% \node[below] at (\Nx,-0.2) {\small $x_R$};
+% \node[left]  at (-0.1,0)   {\small $y_B$};
+% \node[left]  at (-0.1,\Ny) {\small $y_T$};
+
+\end{tikzpicture}

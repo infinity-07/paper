@@ -1,0 +1,134 @@
+\begin{tikzpicture}[>=Stealth, font=\small]
+
+    % --- 参数设置 ---
+    \def\mainW{12}      % 主区域宽度
+    \def\mainH{3}       % 主区域高度
+    \def\waterLevel{1.2} % 平均水位高度
+    \def\amp{0.15}      % 主视图波幅
+    \def\freq{3}        % 主视图波的数量
+
+    % --- 1. 绘制主视图 (Main Domain) ---
+    
+    % 定义波浪路径函数 (用于填充和画线)
+    \def\wavepath{
+        plot[domain=0:\mainW, samples=200, smooth] (\x, {\waterLevel + \amp*sin(\x/\mainW*\freq*360)})
+    }
+
+%     % % 填充水的区域 (带斜线阴影)
+% % 确保波浪线从左侧开始，连接到右侧。
+\fill[pattern=north east lines, pattern color=black!70] 
+    (0,0) 
+    -- (0, \waterLevel) % 左侧 (从下到上)
+    % \wavepath % 上方 (从左到右)
+    % -- plot[domain=0:\mainW, samples=100] (\x, {\waterLevel + \amp*sin(10*\x r)})
+    -- plot[domain=0:\mainW, samples=200, smooth] (\x, {\waterLevel + \amp*sin(\x/\mainW*\freq*360)})
+    -- (\mainW, 0) % 右侧 (从上到下)
+    -- cycle; % 底部 (从右到左连回 (0,0))
+
+    % \fill[pattern=north east lines, pattern color=black!70] 
+    %     (0,0) -- (0, \waterLevel + \amp*{sin(0)) 
+    %     -- (\mainW, 0) 
+    %     -- cycle; 
+
+    
+        % 填充水的区域 (带斜线阴影)
+    % \fill[pattern=north east lines, pattern color=black!70] 
+    %     % 1. 左下角到左侧水位线
+    %     (0,0) -- (0,\waterLevel) 
+    %     % 2. 直接嵌入 plot 命令作为路径的一部分 (波浪线)
+    %     \wavepath
+    %     % 3. 从波浪线右端点到右下角
+    %     -- (\mainW,0) 
+    %     % 4. 闭合路径回到起点
+    %     -- cycle;
+
+    % 绘制波浪线
+    % \draw[thick] (0,\waterLevel) -- \wavepath;
+
+
+    % 绘制上下边界 (Free-slip walls)
+    \draw[thick] (0,0) -- (\mainW,0) node[midway, below] {};
+    \draw[thick] (0,\mainH) -- (\mainW,\mainH) node[midway, above] {};
+
+    % 绘制左右边界 (Periodic)
+    \draw[dashed, thick] (0,0) -- (0,\mainH) node[midway, above, rotate=90, yshift=3mm] {};
+    \draw[dashed, thick] (\mainW,0) -- (\mainW,\mainH) node[midway, below, rotate=90, yshift=3mm] {};
+
+    % 标注 Air 和 Water
+    \node at (2, \mainH - 0.8) {Air};
+    \node at (2, 0.6) {Water};
+
+    % 坐标轴 (x, y)
+    \draw[->, thick] (0,\waterLevel) -- (0.8,\waterLevel) node[right] {};
+    \draw[->, thick] (0,\waterLevel) -- (0,\waterLevel+0.8) node[right] {};
+
+    % 尺寸标注 L
+    \draw[thin] (0,-1) -- (0,-1.3);
+    \draw[thin] (\mainW,-1) -- (\mainW,-1.3);
+    \draw[<->] (0,-1.15) -- (\mainW,-1.15) node[midway, below] {$L$};
+
+    % 尺寸标注 2h
+    \draw[<->] (4.1, 0) -- (4.1, \mainH) node[midway, fill=white, inner sep=1pt, rotate=90] {$2h$};
+
+
+    % --- 2. 绘制放大区域 (Zoom Area) ---
+    
+    % 定义放大区域的位置偏移
+    \begin{scope}[yshift=5cm, xshift=1cm]
+        \def\zoomW{10}
+        \def\zoomH{4}
+        \def\zoomAmp{0.4}
+        
+        % 虚线框
+        \draw[dashed, thick] (0,0) rectangle (\zoomW, \zoomH);
+        \node[above] at (\zoomW/2, \zoomH) {Zoom area};
+
+        % 放大后的波浪路径 (画两个完整的波峰以便标注)
+        \draw[thick] plot[domain=0:\zoomW, samples=200, smooth] (\x, {\zoomH/2 - 0.5 + \zoomAmp*sin(\x/(\zoomW)*2*360)});
+
+        % 标注波长 lambda (从第一个波峰到第二个波峰)
+        % 计算波峰位置: 这里的波频是2，所以在 1/4W 和 3/4W 处是波峰
+        \coordinate (peak1) at (\zoomW/4, {\zoomH/2 - 0.5 + \zoomAmp});
+        \coordinate (peak2) at (\zoomW*3/4, {\zoomH/2 - 0.5 + \zoomAmp});
+        
+        % 辅助线和标注
+        \draw[thin] (peak1) -- ++(0, 0.8);
+        \draw[thin] (peak2) -- ++(0, 0.8);
+        \draw[<->] ($(peak1)+(0,0.6)$) -- ($(peak2)+(0,0.6)$) node[midway, above] {$\lambda$};
+
+        % 标注波高 H (从波峰到波谷)
+        % 波谷在 1/4W 之前的 3/4周期位置或者中间位置，取第一个波峰附近的波谷
+        \coordinate (trough1) at (\zoomW/4 + \zoomW/4, {\zoomH/2 - 0.5 - \zoomAmp});
+        
+        % 画出 H 的标注
+        \draw[thin] (peak1) -- ++(1.2, 0); % 波峰水平线
+        \draw[thin] (trough1) -- ++(-1.3, 0); % 波谷水平线 (近似位置)
+        % 重新精确定位波谷水平线高度
+        \draw[thin] ($(peak1)+(0.5,0)$) -- ++(1.0, 0);
+        \draw[thin] (\zoomW/4, {\zoomH/2 - 0.5 - \zoomAmp}) -- ++(2.5, 0);
+        
+        \draw[<->] (\zoomW/4 + 1.2, {\zoomH/2 - 0.5 + \zoomAmp}) -- (\zoomW/4 + 1.2, {\zoomH/2 - 0.5 - \zoomAmp}) node[midway, right] {$H$};
+
+        % 重力 g
+        \draw[->, thick] (\zoomW/2 + 1.5, 1.5) -- ++(0, -0.8) node[midway, right] {$g$};
+        
+        % 定义连接点用于箭头
+        \coordinate (ZoomBottom) at (\zoomW/2, 0);
+    \end{scope}
+
+
+    % --- 3. 连接线和选框 (Connection) ---
+    
+    % 在主视图中画一个小虚线框，表示被放大的区域
+    \def\spyCx{7.5} % 中心x
+    \def\spyCy{1.2} % 中心y
+    \def\spyW{2}
+    \def\spyH{1}
+    
+    \draw[dashed, thick] (\spyCx - \spyW/2, \spyCy - \spyH/2) rectangle (\spyCx + \spyW/2, \spyCy + \spyH/2);
+    \coordinate (SpyTop) at (\spyCx, \spyCy + \spyH/2);
+
+    % 画连接箭头
+    \draw[->, thin] (SpyTop) -- (ZoomBottom);
+
+\end{tikzpicture}

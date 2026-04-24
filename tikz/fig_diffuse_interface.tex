@@ -1,0 +1,63 @@
+\begin{tikzpicture}[scale=0.82]
+
+\definecolor{redphase}{RGB}{210, 50, 50}
+\definecolor{bluephase}{RGB}{60, 100, 200}
+\definecolor{mixcolor}{RGB}{140, 75, 125}
+
+% scurve function: y = 1.2 + 2.3*(1+tanh(3*(x-2.2)))/2
+% At x=1.3: scurve = 1.2 + 2.3*(1+tanh(-2.7))/2 ≈ 1.2 + 2.3*(1-0.9910)/2 ≈ 1.210
+% At x=3.1: scurve = 1.2 + 2.3*(1+tanh(+2.7))/2 ≈ 1.2 + 2.3*(1+0.9910)/2 ≈ 3.490
+% Both dashed lines go from y=0.5 (x-axis) to y=3.5 (same height as sharp interface)
+
+% Color bar with gradient
+\fill[redphase]  (0.0, 5.2) rectangle (1.3, 6.2);
+\fill[bluephase] (3.1, 5.2) rectangle (4.4, 6.2);
+\foreach \i in {0,...,35} {
+    \pgfmathsetmacro{\x}{1.3 + \i * (1.8/36)}
+    \pgfmathsetmacro{\t}{\i / 35}
+    \pgfmathsetmacro{\rr}{int(210*(1-\t) + 60*\t)}
+    \pgfmathsetmacro{\gg}{int(50*(1-\t)  + 100*\t)}
+    \pgfmathsetmacro{\bb}{int(50*(1-\t)  + 200*\t)}
+    \definecolor{blendcol}{RGB}{\rr,\gg,\bb}
+    \fill[blendcol] (\x, 5.2) rectangle (\x+0.055, 6.2);
+}
+\draw[black, line width=0.8pt] (0.0, 5.2) rectangle (4.4, 6.2);
+
+
+% Double-headed arrow for interface width w, with connectors to color bar bottom
+\draw[<->, line width=1.1pt] (1.3, 4.72) -- (3.1, 4.72);
+\draw[black, line width=0.6pt] (1.3, 4.72) -- (1.3, 5.18);
+\draw[black, line width=0.6pt] (3.1, 4.72) -- (3.1, 5.18);
+
+% Y axis
+\draw[->, line width=1.0pt] (0.0, 0.5) -- (0.0, 4.4);
+\node[left, font=\small, rotate=90, anchor=center] at (-0.6, 2.45) {体积分数 $z_1$};
+% X axis
+\draw[->, line width=1.0pt] (0.0, 0.5) -- (4.7, 0.5)
+      node[midway, below, font=\small, yshift=-2pt] {$x$};
+
+% S-curve colored by region
+\begin{scope}
+    \clip (0.0, 0.5) rectangle (1.6, 4.5);
+    \draw[redphase, line width=1.6pt, samples=60, domain=0.1:2.5,
+          /pgf/declare function={scurve(\x) = 1.2 + 2.3*(1+tanh(3.0*(\x-2.2)))/2;}]
+      plot (\x, {scurve(\x)});
+\end{scope}
+\begin{scope}
+    \clip (2.8, 0.5) rectangle (4.7, 4.5);
+    \draw[bluephase, line width=1.6pt, samples=60, domain=1.9:4.6,
+          /pgf/declare function={scurve(\x) = 1.2 + 2.3*(1+tanh(3.0*(\x-2.2)))/2;}]
+      plot (\x, {scurve(\x)});
+\end{scope}
+\begin{scope}
+    \clip (1.6, 0.5) rectangle (2.8, 4.5);
+    \draw[mixcolor, line width=1.6pt, samples=40, domain=1.4:3.0,
+          /pgf/declare function={scurve(\x) = 1.2 + 2.3*(1+tanh(3.0*(\x-2.2)))/2;}]
+      plot (\x, {scurve(\x)});
+\end{scope}
+
+% Two dashed lines: BOTH from y=0.5 to y=3.5 (same height as sharp interface dashed line)
+\draw[black, dashed, line width=0.9pt] (1.3, 0.5) -- (1.3, 3.5);
+\draw[black, dashed, line width=0.9pt] (3.1, 0.5) -- (3.1, 3.5);
+
+\end{tikzpicture}

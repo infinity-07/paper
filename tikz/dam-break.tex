@@ -1,0 +1,34 @@
+\begin{tikzpicture}[scale=0.7]
+    % Draw the container
+    \draw[thick] (0, 0) rectangle (16.1, 8.05);
+    \draw[thick] (10.1, 0) rectangle (16.1, 3);
+
+    % Fill the water with blue color
+    \fill[cyan!30] (10.1, 0) rectangle (16.1, 3);
+
+
+    % Add labels
+    % \node[align=center] at (3, 6) {Air \\ $\rho_{2,0}=\SI{1.0}{\kilogram\per\cubic\meter}$};
+    % \node[align=center] at (13.05, 1.5) {Water \\ $\rho_{1,0}=\SI{1000.0}{\kilogram\per\cubic\meter}$};
+
+    % Add labels
+    \node[align=center] at (3, 6) {Air};
+    \node[align=center] at (13.05, 1.5) {Water};
+
+
+    \node at (0.5, 0.5) {$p_s$};
+
+    % gravity
+    \draw[->, thick] (5,5) -- (5,4)
+        node[midway, right] {$\bm{g} = (0, -9.81)\SI{}{\meter\per\second\squared}$};
+
+    % Dimensions and arrows
+    \draw[<->] (10.1, 3.1) -- (16.1, 3.1) node[midway, above] {$B = 2H$};
+    \draw[<->] (16.2, 0) -- (16.2, 8.05) node[midway, left, yshift=30pt] {$D = \SI{0.805}{\meter}$};
+    \draw[<->] (0, -0.1) -- (16.1, -0.1) node[midway, below] {$L = 2D$};
+    \draw[<->] (10, 0) -- (10, 3) node[midway, left] {$H = \SI{0.3}{\meter}$};
+
+    % Draw the point p_s
+    \fill[orange] (0, 0.15) circle (0.1);
+
+\end{tikzpicture}

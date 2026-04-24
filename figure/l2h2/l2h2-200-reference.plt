@@ -1,0 +1,5 @@
+TITLE=FVSolution
+VARIABLES=X lambda badcell
+ZONE T=TA
+0 1.2337e-04 0
+1 1.2337e-04 0

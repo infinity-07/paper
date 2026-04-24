@@ -1,0 +1,103 @@
+\resizebox{1.0\textwidth}{!}{
+\begin{tikzpicture}[node distance=0.9cm]
+
+  % ── 节点样式定义（局部） ──────────────────────────
+  \tikzset{
+    mybox/.style={
+      draw=blue!60, fill=blue!8, rounded corners=4pt,
+      text width=6.0cm, align=center, font=\normalsize,
+      minimum height=0.9cm, inner sep=6pt
+    },
+    mydiamond/.style={
+      draw=orange!80, fill=orange!15,
+      diamond, aspect=2.2,
+      align=center, font=\normalsize, inner sep=3pt
+    },
+    sidegreen/.style={
+      draw=green!60!black, fill=green!10, rounded corners=4pt,
+      text width=3.8cm, align=left, font=\normalsize,
+      inner sep=6pt
+    },
+    sideleft/.style={
+      draw=blue!40, fill=blue!5, rounded corners=4pt,
+      text width=2.8cm, align=center, font=\normalsize,
+      inner sep=5pt
+    },
+    myarrow/.style={->, >=stealth, thick},
+    greenarrow/.style={->, >=stealth, thick, green!60!black}
+  }
+
+  % ── 主流程节点 ───────────────────────────────────
+  \node[mybox] (init) {
+    \textbf{初始化：计算时间 $t = 0$}\\[2pt]
+    设定初始单元平均值 $\bar{u}$\\
+    （密度、速度、压力等）
+  };
+
+  \node[mydiamond, below=of init] (start) {开始计算};
+
+  \node[mybox, below=of start] (solve) {
+    \textbf{计算高斯点处的通量}
+  };
+
+  \node[mybox, below=0.9cm of solve] (robust1) {
+    \textbf{使用保正限制器提升算法鲁棒性}
+  };
+
+  \node[mybox, below=0.9cm of robust1] (robust2) {
+    \textbf{使用近似黎曼求解器计算数值通量}
+  };
+
+  \node[mybox, below=0.9cm of robust2] (update) {
+    \textbf{更新流场和当前计算时间}\\[2pt]
+    $t^{n+1} = t^n + \Delta t$，\quad
+    $u^{n+1} = u^n + \Delta u$
+  };
+
+  \node[mydiamond, below=0.9cm of update] (check) {
+    是否达到终止时间 $T$?
+  };
+
+  \node[mydiamond, below=0.9cm of check] (stop) {停止计算};
+
+  % ── 右侧说明框 ───────────────────────────────────
+  \node[sidegreen, text width=4.2cm, right=1.6cm of solve] (note1) {
+    \textbf{求解步骤}\\[3pt]
+    1. 选择合适的函数空间\\[3pt]
+    2. 优化形状参数\\[3pt]
+    3. WENO 插值
+  };
+
+  \node[sidegreen, text width=4.2cm, right=1.6cm of robust2] (note2) {
+    \textbf{近似黎曼求解器选择}\\[3pt]
+    $\bullet$ LLF Flux（简便）\\[3pt]
+    $\bullet$ HLLC Flux（耗散小）\upcite{ZHANG2025116467}
+  };
+
+  % ── 左侧循环初值框 ───────────────────────────────
+  \node[sideleft, left=2.2cm of robust2] (reinit) {
+    将 $t^{n+1}$ 时刻的\\数值解\\作为初值解
+  };
+
+  % ── 主流程箭头 ───────────────────────────────────
+  \draw[myarrow] (init)    -- (start);
+  \draw[myarrow] (start)   -- (solve);
+  \draw[myarrow] (solve)   -- (robust1);
+  \draw[myarrow] (robust1) -- (robust2);
+  \draw[myarrow] (robust2) -- (update);
+  \draw[myarrow] (update)  -- (check);
+  \draw[myarrow] (check)   -- node[right, font=\normalsize, red!70!black] {是} (stop);
+
+  % 否 → 左侧回路
+  \draw[myarrow] (check.west)
+    -| node[left, font=\normalsize, red!70!black] {否}
+    (reinit.south);
+  \draw[myarrow] (reinit.north)
+    |- (start.west);
+
+  % ── 右侧绿色箭头 ─────────────────────────────────
+  \draw[greenarrow] (note1.west) -- (solve.east);
+  \draw[greenarrow] (note2.west) -- (robust2.east);
+
+\end{tikzpicture}
+}

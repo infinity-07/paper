@@ -1,0 +1,27 @@
+\begin{tikzpicture}[scale=0.82]
+
+\definecolor{redphase}{RGB}{210, 50, 50}
+\definecolor{bluephase}{RGB}{60, 100, 200}
+
+% Color bar
+\fill[redphase]  (0.0, 5.2) rectangle (2.2, 6.2);
+\fill[bluephase] (2.2, 5.2) rectangle (4.4, 6.2);
+\draw[black, line width=0.8pt] (0.0, 5.2) rectangle (4.4, 6.2);
+
+
+
+% Y axis
+\draw[->, line width=1.0pt] (0.0, 0.5) -- (0.0, 4.4);
+\node[left, font=\small, rotate=90, anchor=center] at (-0.6, 2.45) {体积分数 $z_1$};
+% X axis
+\draw[->, line width=1.0pt] (0.0, 0.5) -- (4.7, 0.5)
+      node[midway, below, font=\small, yshift=-2pt] {$x$};
+
+% Step function
+\draw[redphase,  line width=1.6pt] (0.1, 1.2) -- (2.2, 1.2);
+\draw[bluephase, line width=1.6pt] (2.2, 3.5) -- (4.6, 3.5);
+
+% Dashed vertical line from x-axis to blue plateau level
+\draw[black, dashed, line width=0.9pt] (2.2, 0.5) -- (2.2, 3.5);
+
+\end{tikzpicture}

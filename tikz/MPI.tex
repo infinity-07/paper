@@ -1,0 +1,251 @@
+% ============================================================
+%  MPI 并行计算流程图
+%  描述：基于 WENO 重构 + 保正限制器 + SSP-RK 时间推进
+%        的 MPI 并行求解器主循环结构
+%
+%  三栏布局：
+%    左栏  —— 主进程控制流程（时间推进主循环）    主题色：绿
+%    中栏  —— MPI 通信层（非阻塞辅助层数据交换）  主题色：蓝
+%    右栏  —— 各进程本地计算流程                  主题色：红
+%
+%  颜色层次（同色系，由深到浅）：
+%    文本框填充  > 背景分区框填充
+%    绿: green!15  >  green!6
+%    蓝: blue!12   >  blue!5
+%    红: red!10    >  red!4
+% ============================================================
+
+\tikzset{
+  % 开始/结束圆角端子框（左栏，绿色系）
+  terminal/.style={
+    draw=green!55!black, fill=white,
+    rounded corners=12pt,
+    align=center, font=\small\bfseries,
+    minimum height=0.75cm, minimum width=2.6cm,
+    inner sep=5pt, line width=1.0pt
+  },
+  % 通用流程框（左栏，绿色系）
+  mainbox/.style={
+    draw=green!55!black, fill=white,
+    align=center, font=\small,
+    minimum height=0.85cm, minimum width=2.8cm,
+    inner sep=5pt, line width=1.0pt
+  },
+  % 判断菱形框（左栏，绿色系）
+  decision/.style={
+    draw=green!55!black, fill=white,
+    diamond, aspect=2.6,
+    align=center, font=\small,
+    inner sep=2pt, line width=1.0pt
+  },
+  % MPI 通信操作框（中栏，蓝色系）
+  mpibox/.style={
+    draw=blue!60, fill=white,
+    align=center, font=\small,
+    minimum height=1.1cm, minimum width=2.8cm,
+    inner sep=5pt, line width=1.0pt
+  },
+  % 本地计算步骤框（右栏，红色系）
+  compbox/.style={
+    draw=red!60!black, fill=white,
+    align=center, font=\small,
+    minimum height=0.85cm, minimum width=3.0cm,
+    inner sep=5pt, line width=1.0pt
+  },
+  % 有向箭头样式
+  arr/.style={->, >=Stealth, thick},
+}
+
+\resizebox{0.8\textwidth}{!}{%
+\begin{tikzpicture}[node distance=0.65cm]
+
+% ══════════════════════════════════════════════════════════
+%  左栏：主进程时间推进主循环
+%  流程：初始化 → 启动子步计算 → 更新时间与解 → 判断终止
+% ══════════════════════════════════════════════════════════
+
+% 程序入口
+\node[terminal] (start) {开始};
+
+% 初始化各单元均值 Q^0_{i,j}（包括初始条件赋值与边界条件设置）
+\node[mainbox, below=0.6cm of start] (init) {
+  初始化 $\overline{\bm{Q}}_{i,j}^0$
+};
+
+% 启动 SSP-RK 子步：触发 MPI 辅助层数据交换与本地 WENO 计算
+% 此框为当前子步的"发起"节点，实际 ΔQ 由右栏计算完成后返回
+\node[mainbox, below=0.6cm of init] (calcdQ) {
+  发起 SSP-RK 子步计算
+};
+
+% 接收本地计算结果，更新物理时间与守恒变量
+\node[mainbox, below=0.6cm of calcdQ] (update) {
+  $t \leftarrow t + \Delta t$\\[-2pt]
+  {\footnotesize $\bm{Q} \leftarrow \bm{Q} + \Delta\bm{Q}$}
+};
+
+% 时间终止判断：t ≥ T 则退出，否则继续下一子步
+\node[decision, below=0.65cm of update] (tcheck) {
+  $t \geq T$?
+};
+
+% 程序出口
+\node[terminal, below=0.7cm of tcheck] (end) {结束};
+
+% ══════════════════════════════════════════════════════════
+%  中栏：MPI 通信层
+%  采用非阻塞通信（Isend/Irecv）与内部单元计算重叠，
+%  降低通信等待开销；Waitall 确保辅助数据就绪后再重构
+% ══════════════════════════════════════════════════════════
+
+% 发起非阻塞辅助层数据交换
+\node[mpibox, right=2.2cm of calcdQ] (isend) {
+  发起非阻塞辅助层数据交换
+};
+
+% 等待所有非阻塞通信完成，确保辅助数据更新完毕
+\node[mpibox, below=0.6cm of isend] (waitall) {
+  等待通信完成
+};
+
+% ══════════════════════════════════════════════════════════
+%  右栏：各 MPI 进程本地计算流程
+%  顺序：内部单元重构（与通信重叠） → 等待辅助 →
+%        边界单元重构 → 保正限制器 → 通量计算 → RK 更新
+% ══════════════════════════════════════════════════════════
+
+% 第一步：对内部单元（不依赖辅助）进行 WENO 重构
+% 与 MPI 通信重叠执行，隐藏通信延迟
+\node[compbox, right=2.0cm of isend] (weno_int) {
+  内部单元 WENO 重构\\[-1pt]
+  {\footnotesize （与辅助层通信重叠执行）}
+};
+
+% 第二步：辅助数据就绪后，对边界单元进行 WENO 重构
+\node[compbox] (weno_bnd) at (weno_int |- waitall) {
+  边界单元 WENO 重构\\[-1pt]
+  {\footnotesize （依赖辅助数据）}
+};
+
+% 第三步：施加保正限制器，确保分密度等物理量非负
+\node[compbox, below=0.6cm of weno_bnd] (limiter) {
+  施加保正限制器\\[-1pt]
+  {\footnotesize （确保 $\rho_k > 0$，$p > 0$）}
+};
+
+% 第四步：利用重构界面值计算数值通量（如 HLLC / Lax-Friedrichs）
+\node[compbox, below=0.6cm of limiter] (flux) {
+  计算界面数值通量\\[-1pt]
+  {\footnotesize （HLLC / Lax-Friedrichs）}
+};
+
+% 第五步：按 SSP-RK 格式累加空间残差，得到本子步的 ΔQ
+\node[compbox, below=0.6cm of flux] (rk) {
+  有限体积法残差累加\\[-1pt]
+  {\footnotesize （输出 $\Delta\bm{Q}$ 至主流程）}
+};
+
+% ══════════════════════════════════════════════════════════
+%  背景分区框：三列分别用绿/蓝/红虚线框标注
+%  使用 on background layer 避免覆盖前景节点
+%  两次绘制：第一次用 fit 节点确定各列宽度，
+%            第二次统一拉齐上下边界至 start/rk 水平
+% ══════════════════════════════════════════════════════════
+\begin{scope}[on background layer]
+  % 第一次：用 fit 获取各列的左右范围（宽度锚点）
+  \node[
+    draw=green!55!black, fill=green!6,
+    rounded corners=8pt, dashed, line width=1.1pt,
+    fit=(start)(init)(calcdQ)(update)(tcheck)(end),
+    inner sep=12pt
+  ] (leftframe) {};
+
+  \node[
+    draw=blue!60, fill=blue!5,
+    rounded corners=8pt, dashed, line width=1.1pt,
+    fit=(isend)(waitall),
+    inner sep=12pt
+  ] (midframe) {};
+
+  \node[
+    draw=red!60!black, fill=red!4,
+    rounded corners=8pt, dashed, line width=1.1pt,
+    fit=(weno_int)(weno_bnd)(limiter)(flux)(rk),
+    inner sep=12pt
+  ] (rightframe) {};
+\end{scope}
+
+% 第二次：以 start 顶部与 rk 底部为统一上下边界，重绘三框
+\begin{scope}[on background layer]
+  % 统一上下边界坐标
+  \coordinate (top_y) at ($(start.north) + (0,  0.42cm)$);
+  \coordinate (bot_y) at ($(rk.south)    + (0, -0.42cm)$);
+
+  % 左框（主流程）：绿色虚线
+  \filldraw[fill=green!6, draw=green!55!black,
+            rounded corners=8pt, dashed, line width=1.1pt]
+    (leftframe.west  |- top_y) rectangle (leftframe.east  |- bot_y);
+
+  % 中框（MPI 通信）：蓝色虚线
+  \filldraw[fill=blue!5, draw=blue!60,
+            rounded corners=8pt, dashed, line width=1.1pt]
+    (midframe.west   |- top_y) rectangle (midframe.east   |- bot_y);
+
+  % 右框（本地计算）：红色虚线
+  \filldraw[fill=red!4, draw=red!60!black,
+            rounded corners=8pt, dashed, line width=1.1pt]
+    (rightframe.west |- top_y) rectangle (rightframe.east |- bot_y);
+\end{scope}
+
+% 分区标签（位于各框顶部正中）
+\node[font=\small\bfseries, text=green!60!black]
+  at (leftframe.north  |- top_y) [above=4pt] {主流程};
+\node[font=\small\bfseries, text=blue!65!black]
+  at (midframe.north   |- top_y) [above=4pt] {MPI 通信};
+\node[font=\small\bfseries, text=red!65!black]
+  at (rightframe.north |- top_y) [above=4pt] {各进程本地计算};
+
+% ══════════════════════════════════════════════════════════
+%  有向箭头：连接各节点，表示控制流与数据流
+% ══════════════════════════════════════════════════════════
+
+% ── 左栏内部纵向连接 ──
+\draw[arr] (start)  -- (init);
+\draw[arr] (init)   -- (calcdQ);
+\draw[arr] (update) -- (tcheck);
+% t ≥ T：向下退出
+\draw[arr] (tcheck) -- node[right, font=\small] {是} (end);
+% t < T：从 tcheck 左侧折回 calcdQ，进入下一时间子步
+\draw[arr] (tcheck.west)
+  -- node[above, font=\small] {否}
+  ++(-1.5cm, 0)
+  |- (calcdQ.west);
+
+% ── 左栏 → 中栏：启动子步计算时触发非阻塞通信 ──
+\draw[arr] (calcdQ.east) -- (isend.west);
+
+% ── 中栏 → 右栏：发起通信的同时，立即启动内部单元重构 ──
+\draw[arr] (isend.east) -- (weno_int.west);
+
+% ── 右栏内部：内部重构完成后等待通信，再处理边界单元 ──
+% weno_int 底部向下，折向 waitall 顶部（表示"等待"依赖关系）
+\draw[arr] (weno_int.south)
+  -- ++(0, -0.3cm)
+  -| (waitall.north);
+
+% ── 中栏 → 右栏：辅助数据就绪，触发边界单元重构 ──
+\draw[arr] (waitall.east) -- (weno_bnd.west);
+
+% ── 右栏内部纵向连接：重构 → 限制器 → 通量 → RK更新 ──
+\draw[arr] (weno_bnd) -- (limiter);
+\draw[arr] (limiter)  -- (flux);
+\draw[arr] (flux)     -- (rk);
+
+% ── 右栏 → 左栏：子步计算完成，将 ΔQ 返回主流程 ──
+% 从 rk 左侧引出，经底部通道折回 update 右侧
+\draw[arr] (rk.west)
+  -- ++(-7cm, 0)
+  |- (update.east);
+
+\end{tikzpicture}
+}

@@ -1,0 +1,228 @@
+\begin{thebibliography}{10}
+
+\bibitem{drew1982mathematical}
+Donald~A Drew.
+\newblock Mathematical modeling of two-phase flow.
+\newblock Technical report, 1982.
+
+\bibitem{stewart1984two}
+H~Bruce Stewart and Burton Wendroff.
+\newblock Two-phase flow: models and methods.
+\newblock {\em Journal of Computational Physics}, 56(3):363--409, 1984.
+
+\bibitem{RICHARDSAUREL20091678}
+{Richard Saurel}, Fabien Petitpas, and Ray~A. Berry.
+\newblock Simple and efficient relaxation methods for interfaces separating compressible fluids, cavitating flows and shocks in multiphase mixtures.
+\newblock {\em Journal of Computational Physics}, 228(5):1678--1712, 2009.
+
+\bibitem{sussman1994level}
+Mark Sussman, Peter Smereka, and Stanley Osher.
+\newblock A level set approach for computing solutions to incompressible two-phase flow.
+\newblock {\em Journal of Computational physics}, 114(1):146--159, 1994.
+
+\bibitem{sussman2007sharp}
+Mark Sussman, Kayne~M Smith, M~Yousuff Hussaini, Mitsuhiro Ohta, and R~Zhi-Wei.
+\newblock A sharp interface method for incompressible two-phase flows.
+\newblock {\em Journal of computational physics}, 221(2):469--505, 2007.
+
+\bibitem{murrone2005five}
+Angelo Murrone and Herv{\'e} Guillard.
+\newblock A five equation reduced model for compressible two phase flow problems.
+\newblock {\em Journal of Computational Physics}, 202(2):664--698, 2005.
+
+\bibitem{kapila2001two}
+AK~Kapila, Ralph Menikoff, JB~Bdzil, SF~Son, and D~Scott Stewart.
+\newblock Two-phase modeling of deflagration-to-detonation transition in granular materials: Reduced equations.
+\newblock {\em Physics of fluids}, 13(10):3002--3024, 2001.
+
+\bibitem{Chanteperdrix2004}
+Guilhem Chanteperdrix.
+\newblock {\em Mod{\'e}lisation et simulation num{\'e}rique d’{\'e}coulements diphasiques {\`a} interface libre. Application {\`a} l’{\'e}tude des mouvements de liquides dans les r{\'e}servoirs de v{\'e}hicules spatiaux}.
+\newblock {PhD} thesis, L’{\'e}cole Nationale Sup{\'e}rieure de l’A{\'e}ronautique et de l’espace, 2004.
+
+\bibitem{grenier2013accurate}
+Nicolas Grenier, J-P Vila, and Philippe Villedieu.
+\newblock An accurate low-mach scheme for a compressible two-fluid model applied to free-surface flows.
+\newblock {\em Journal of Computational Physics}, 252:1--19, 2013.
+
+\bibitem{zhang2023physical}
+Fan Zhang, Jian Cheng, and Tiegang Liu.
+\newblock A physical-constraint-preserving discontinuous galerkin method for weakly compressible two-phase flows.
+\newblock {\em Journal of Scientific Computing}, 96(3):84, 2023.
+
+\bibitem{li2020finite}
+Zhe Li, Guillaume Oger, and David Le~Touz{\'e}.
+\newblock A finite volume weno scheme for immiscible inviscid two-phase flows.
+\newblock {\em Journal of Computational Physics}, 418:109601, 2020.
+
+\bibitem{li2022simplified}
+Zhe Li, Louis Vittoz, Guillaume Oger, and David Le~Touz{\'e}.
+\newblock A simplified and efficient weakly-compressible fv-weno scheme for immiscible two-phase flows.
+\newblock {\em Computers \& Fluids}, 244:105555, 2022.
+
+\bibitem{ABGRALL1996150}
+Rémi Abgrall.
+\newblock How to prevent pressure oscillations in multicomponent flow calculations: A quasi conservative approach.
+\newblock {\em Journal of Computational Physics}, 125(1):150--160, 1996.
+
+\bibitem{Zhang2025exponential}
+Fan Zhang, Yang Zhang, Jian Cheng, and Tiegang Liu.
+\newblock Exponential approximation space based finite volume weno scheme for solving the five-equation model of compressible two-medium flows.
+\newblock {\em Journal of Scientific Computing}, 104(1):6, 2025.
+
+\bibitem{harten1987uniformly}
+Ami Harten and Stanley Osher.
+\newblock Uniformly high-order accurate nonoscillatory schemes. i.
+\newblock {\em SIAM Journal on Numerical Analysis}, 24(2):279--309, 1987.
+
+\bibitem{liu1994weighted}
+Xu-Dong Liu, Stanley Osher, and Tony Chan.
+\newblock Weighted essentially non-oscillatory schemes.
+\newblock {\em Journal of computational physics}, 115(1):200--212, 1994.
+
+\bibitem{JIANG1996202}
+Guang-Shan Jiang and Chi-Wang Shu.
+\newblock Efficient implementation of weighted eno schemes.
+\newblock {\em Journal of Computational Physics}, 126(1):202--228, 1996.
+
+\bibitem{henrick2005mapped}
+Andrew~K. Henrick, Tariq~D. Aslam, and Joseph~M. Powers.
+\newblock Mapped weighted essentially non-oscillatory schemes: Achieving optimal order near critical points.
+\newblock {\em Journal of Computational Physics}, 207(2):542--567, 2005.
+
+\bibitem{borges2008improved}
+Rafael Borges, Monique Carmona, Bruno Costa, and Wai~Sun Don.
+\newblock An improved weighted essentially non-oscillatory scheme for hyperbolic conservation laws.
+\newblock {\em Journal of Computational Physics}, 227(6):3191--3211, 2008.
+
+\bibitem{ZHU2018659}
+Jun Zhu and Chi-Wang Shu.
+\newblock A new type of multi-resolution weno schemes with increasingly higher order of accuracy.
+\newblock {\em Journal of Computational Physics}, 375:659--683, 2018.
+
+\bibitem{Fu2023ReviewOT}
+Lin Fu.
+\newblock Review of the high-order teno schemes for compressible gas dynamics and turbulence.
+\newblock {\em Archives of Computational Methods in Engineering}, 30:2493--2526, 2023.
+
+\bibitem{coralic2014finite}
+Vedran Coralic and Tim Colonius.
+\newblock Finite-volume weno scheme for viscous compressible multicomponent flows.
+\newblock {\em Journal of computational physics}, 274:95--121, 2014.
+
+\bibitem{zhang2011maximum}
+Xiangxiong Zhang and Chi-Wang Shu.
+\newblock Maximum-principle-satisfying and positivity-preserving high-order schemes for conservation laws: survey and new developments.
+\newblock {\em Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences}, 467(2134):2752--2776, 2011.
+
+\bibitem{zhang2011positivity}
+Xiangxiong Zhang and Chi-Wang Shu.
+\newblock Positivity-preserving high order discontinuous galerkin schemes for compressible euler equations with source terms.
+\newblock {\em Journal of Computational Physics}, 230(4):1238--1248, 2011.
+
+\bibitem{zhu2010trigonometric}
+Jun Zhu and Jianxian Qiu.
+\newblock Trigonometric weno schemes for hyperbolic conservation laws and highly oscillatory problems.
+\newblock {\em Communications in Computational Physics}, 8(5):1242–1263, Aug. 2010.
+
+\bibitem{zhu2013weno}
+Jun Zhu and Jianxian Qiu.
+\newblock Weno schemes and their application as limiters for rkdg methods based on trigonometric approximation spaces.
+\newblock {\em Journal of Scientific Computing}, 55(3):606--644, 2013.
+
+\bibitem{guo2017radial}
+Jingyang Guo and Jae-Hun Jung.
+\newblock Radial basis function eno and weno finite difference methods based on the optimization of shape parameters.
+\newblock {\em Journal of Scientific Computing}, 70(2):551--575, 2017.
+
+\bibitem{GUO201727}
+Jingyang Guo and Jae-Hun Jung.
+\newblock A rbf-weno finite volume method for hyperbolic conservation laws with the monotone polynomial interpolation method.
+\newblock {\em Applied Numerical Mathematics}, 112:27--50, 2017.
+
+\bibitem{Ha2016}
+Youngsoo Ha, Chang~Ho Kim, Hyoseon Yang, and Jungho Yoon.
+\newblock Sixth-order weighted essentially nonoscillatory schemes based on exponential polynomials.
+\newblock {\em SIAM Journal on Scientific Computing}, 38(4):A1987--A2017, 2016.
+
+\bibitem{Ha2021}
+Youngsoo Ha, Chang~Ho Kim, Hyoseon Yang, and Jungho Yoon.
+\newblock Improving accuracy of the fifth-order weno scheme by using the exponential approximation space.
+\newblock {\em SIAM Journal on Numerical Analysis}, 59(1):143--172, 2021.
+
+\bibitem{Lee2023}
+Kyungrok Lee, Jung-Il Choi, and Jungho Yoon.
+\newblock Improving the third-order weno schemes by using exponential polynomial space with a locally optimized shape parameter.
+\newblock {\em Computers \& Mathematics with Applications}, 149:24--37, 2023.
+
+\bibitem{zhang2025positivity}
+Yang Zhang and Fan Zhang.
+\newblock A positivity-preserving hllc-based discontinuous galerkin method for weakly compressible two-phase flows.
+\newblock {\em Journal of Computational and Applied Mathematics}, 462:116467, 2025.
+
+\bibitem{gottlieb2001strong}
+Sigal Gottlieb, Chi-Wang Shu, and Eitan Tadmor.
+\newblock Strong stability-preserving high-order time discretization methods.
+\newblock {\em SIAM review}, 43(1):89--112, 2001.
+
+\bibitem{Shu1998}
+Chi-Wang Shu.
+\newblock {\em Essentially non-oscillatory and weighted essentially non-oscillatory schemes for hyperbolic conservation laws}, pages 325--432.
+\newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 1998.
+
+\bibitem{toro2009riemann}
+Eleuterio~F Toro.
+\newblock {\em Riemann solvers and numerical methods for fluid dynamics: a practical introduction}.
+\newblock Springer Science \& Business Media, 2009.
+
+\bibitem{harten1983upstream}
+Amiram Harten, Peter~D Lax, and Bram~van Leer.
+\newblock On upstream differencing and godunov-type schemes for hyperbolic conservation laws.
+\newblock {\em SIAM review}, 25(1):35--61, 1983.
+
+\bibitem{toro1994restoration}
+Eleuterio~F Toro, Michael Spruce, and William Speares.
+\newblock Restoration of the contact surface in the hll-riemann solver.
+\newblock {\em Shock waves}, 4:25--34, 1994.
+
+\bibitem{einfeldt1988godunov}
+Bernd Einfeldt.
+\newblock On godunov-type methods for gas dynamics.
+\newblock {\em SIAM Journal on numerical analysis}, 25(2):294--318, 1988.
+
+\bibitem{Sussman2007}
+Mark Sussman, K.M. Smith, Mohammed Hussaini, Mitsuhiro Ohta, and R.~Zhi-Wei.
+\newblock A sharp interface method for incompressible two-phase flows.
+\newblock {\em Journal of Computational Physics}, 221:469--505, 02 2007.
+
+\bibitem{Frandsen2003}
+\{J. B.\} Frandsen and \{A. G.L.\} Borthwick.
+\newblock Simulation of sloshing motions in fixed and vertically excited containers using a 2-d inviscid $\sigma$-transformed finite difference solver.
+\newblock {\em Journal of Fluids and Structures}, 18(2):197--214, September 2003.
+
+\bibitem{1997JCoPh.130..269P}
+Elbridge~Gerry {Puckett}, Ann~S. {Almgren}, John~B. {Bell}, Daniel~L. {Marcus}, and William~J. {Rider}.
+\newblock {A High-Order Projection Method for Tracking Fluid Interfaces in Variable Density Incompressible Flows}.
+\newblock {\em Journal of Computational Physics}, 130(2):269--282, January 1997.
+
+\bibitem{LOBOVSKY2014407}
+L.~Lobovský, E.~Botia-Vera, F.~Castellana, J.~Mas-Soler, and A.~Souto-Iglesias.
+\newblock Experimental investigation of dynamic pressure loads during dam break.
+\newblock {\em Journal of Fluids and Structures}, 48:407--434, 2014.
+
+\bibitem{Martin1952PartIA}
+J.~C. Martin, William Moyce, William~George Penney, Albert~T. Price, and Cheryl~K. Thornhill.
+\newblock Part iv. an experimental study of the collapse of liquid columns on a rigid horizontal plane.
+\newblock {\em Philosophical Transactions of the Royal Society of London. Series A, Mathematical and Physical Sciences}, 244:312 -- 324, 1952.
+
+\bibitem{PARAMESWARAN2019405}
+S.~Parameswaran and J.C. Mandal.
+\newblock A novel roe solver for incompressible two-phase flow problems.
+\newblock {\em Journal of Computational Physics}, 390:405--424, 2019.
+
+\bibitem{Yang2020AHF}
+Rihua Yang, He-Nong Li, and Aiming Yang.
+\newblock A hllc-type finite volume method for incompressible two-phase flows.
+\newblock {\em Computers \& Fluids}, 213:104715, 2020.
+
+\end{thebibliography}
