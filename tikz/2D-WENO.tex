@@ -1,0 +1,66 @@
+\begin{tikzpicture}[
+    >=Stealth,
+    font=\small,
+    gridline/.style={black!70, line width=0.45pt},
+    redobj/.style={red, line width=1.2pt},
+    arrow/.style={red, -{Stealth[length=3mm]}, line width=0.9pt}
+]
+
+% ---------- parameters ----------
+\def\dx{0.85}
+\def\dy{0.85}
+% Grid width = 3*\dx = 2.55cm
+% Left  grid: x in [0,      2.55]
+% Middle grid: x in [4.75,  7.30]   (xshift=4.75cm)
+% Right  grid: x in [9.55, 12.10]   (xshift=9.55cm)
+% Arrow 1 center: (2.55+4.75)/2 = 3.65cm
+% Arrow 2 center: (7.30+9.55)/2 = 8.425cm
+
+% ---------- helper: grid ----------
+\newcommand{\drawgrid}[1]{
+    \begin{scope}[xshift=#1]
+        \foreach \x in {0,1,2,3}{
+            \draw[gridline] (\x*\dx,0) -- (\x*\dx,3*\dy);
+        }
+        \foreach \y in {0,1,2,3}{
+            \draw[gridline] (0,\y*\dy) -- (3*\dx,\y*\dy);
+        }
+    \end{scope}
+}
+
+% ---------- left grid ----------
+\drawgrid{0cm}
+\fill[red] (1*\dx,1*\dy) rectangle (2*\dx,2*\dy);
+\node at (1.5*\dx,1.5*\dy) {$i,j$};
+\node at (1.5*\dx,-0.55) {$\bar{u}_{i,j}$};
+
+% ---------- arrow 1: y-sweep (centered at x=3.65cm, half-length=0.5cm) ----------
+\draw[arrow] (3.15,1.5*\dy) -- (4.15,1.5*\dy);
+\node[red, anchor=center] at (3.65,1.5*\dy+0.38) {$y$-sweep};
+
+% ---------- middle grid: dashed horizontal lines at j±1/2 ----------
+\begin{scope}[xshift=4.75cm]
+    \drawgrid{0cm}
+    \draw[redobj, densely dashed] (1*\dx,1*\dy) -- (2*\dx,1*\dy);
+    \draw[redobj, densely dashed] (1*\dx,2*\dy) -- (2*\dx,2*\dy);
+    \node at (1.5*\dx,1.5*\dy) {$i,j$};
+    \node at (1.5*\dx,-0.55) {$\bar{u}^{\pm}_{i,\,j+1/2}$};
+\end{scope}
+
+% ---------- arrow 2: x-sweep (centered at x=8.425cm, half-length=0.5cm) ----------
+\draw[arrow] (7.925,1.5*\dy) -- (8.925,1.5*\dy);
+\node[red, anchor=center] at (8.425,1.5*\dy+0.38) {$x$-sweep};
+
+% ---------- right grid: crosses along y = j±1/2 ----------
+\begin{scope}[xshift=9.55cm]
+    \drawgrid{0cm}
+    \foreach \xx in {1.25,1.5,1.75}{
+        \foreach \yy in {1,2}{
+            \node[red, scale=0.75] at (\xx*\dx,\yy*\dy) {$\times$};
+        }
+    }
+    \node at (1.5*\dx,1.5*\dy) {$i,j$};
+    \node at (1.5*\dx,-0.55) {$u^{\pm}_{i^\alpha,\,j+1/2}$};
+\end{scope}
+
+\end{tikzpicture}

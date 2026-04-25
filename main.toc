@@ -1,0 +1,57 @@
+\contentsline {section}{\numberline {1}主要符号对照表}{7}{section.1}%
+\contentsline {section}{\numberline {2}绪论}{9}{section.2}%
+\contentsline {subsection}{\numberline {2.1}研究背景与意义}{9}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}国内外研究现状及发展趋势}{11}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}传统的基于多项式逼近的弱可压缩两相流模型求解方法}{11}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}非多项式逼近空间 WENO 格式及其发展}{15}{subsubsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.3}本文的主要工作与内容安排}{17}{subsection.2.3}%
+\contentsline {section}{\numberline {3}使用WENO有限体积法求解三方程模型}{19}{section.3}%
+\contentsline {subsection}{\numberline {3.1}三方程模型与离散格式}{19}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}重构变量}{24}{subsection.3.2}%
+\contentsline {paragraph}{守恒变量重构}{25}{section*.6}%
+\contentsline {paragraph}{特征变量重构}{25}{section*.7}%
+\contentsline {paragraph}{原始变量重构}{25}{section*.8}%
+\contentsline {subsection}{\numberline {3.3}传统基于多项式的有限体积WENO格式}{27}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}WENO重构过程}{27}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}WENO5-JS格式}{28}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}WENO5-Z格式}{29}{subsubsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.4}二维 WENO 重构}{29}{subsubsection.3.3.4}%
+\contentsline {paragraph}{A 类方案（维度降维）}{30}{section*.11}%
+\contentsline {paragraph}{B 类方案（两次重构）}{30}{section*.12}%
+\contentsline {subsection}{\numberline {3.4}保正限制算法}{31}{subsection.3.4}%
+\contentsline {paragraph}{单元平均值的正性保持}{31}{section*.14}%
+\contentsline {paragraph}{高阶重构解的保正限制器}{33}{section*.15}%
+\contentsline {subsection}{\numberline {3.5}Riemann 求解器}{35}{subsection.3.5}%
+\contentsline {paragraph}{LLF Riemann 求解器}{35}{section*.16}%
+\contentsline {paragraph}{HLLC Riemann 求解器}{35}{section*.17}%
+\contentsline {section}{\numberline {4}高精度 WENO 重构}{39}{section.4}%
+\contentsline {subsection}{\numberline {4.1}非多项式函数重构方法}{39}{subsection.4.1}%
+\contentsline {paragraph}{方法一：基于守恒约束的积分重构}{39}{section*.19}%
+\contentsline {paragraph}{方法二：基于原函数的重构方法}{40}{section*.20}%
+\contentsline {subsection}{\numberline {4.2}非多项式基函数}{41}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}指数多项式逼近空间 WENO 格式}{44}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}大模板重构与形状参数}{44}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}子模板重构与线性权重}{46}{subsubsection.4.3.2}%
+\contentsline {subsubsection}{\numberline {4.3.3}非线性权重与光滑性指标}{48}{subsubsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.4}形状参数的自适应选取}{50}{subsection.4.4}%
+\contentsline {paragraph}{全局光滑性判别}{50}{section*.23}%
+\contentsline {paragraph}{映射函数}{50}{section*.24}%
+\contentsline {paragraph}{形状参数的自适应策略}{50}{section*.26}%
+\contentsline {section}{\numberline {5}数值结果}{51}{section.5}%
+\contentsline {subsection}{\numberline {5.1}MPI 并行程序设计}{52}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}一维光滑对流问题}{53}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}一维锐利对流问题}{54}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}二维光滑对流问题}{56}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}二维锐利对流问题}{57}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}低幅值驻波问题}{59}{subsection.5.6}%
+\contentsline {subsection}{\numberline {5.7}线性晃荡问题}{62}{subsection.5.7}%
+\contentsline {subsection}{\numberline {5.8}Rayleigh--Taylor 不稳定性问题}{63}{subsection.5.8}%
+\contentsline {subsection}{\numberline {5.9}溃坝流问题}{64}{subsection.5.9}%
+\contentsline {section}{\numberline {6}结论与展望}{67}{section.6}%
+\contentsline {section}{\numberline {7}攻读学位期间学术成果及获奖情况}{75}{section.7}%
+\contentsline {paragraph}{学术成果}{75}{section*.48}%
+\contentsline {paragraph}{获奖情况}{75}{section*.49}%
+\contentsline {section}{\numberline {8}致谢}{77}{section.8}%
+\contentsline {section}{\numberline {9}这里放置一些可能有用可能没用的附录内容}{79}{section.9}%
+\contentsline {subsection}{\numberline {9.1}黎曼求解器}{79}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}特征变量重构}{82}{subsection.9.2}%

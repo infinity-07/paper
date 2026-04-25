@@ -1,0 +1,62 @@
+\begin{tikzpicture}[
+    font=\sffamily\small,
+    >=Stealth,
+    arr/.style   = {->,  draw=gray!70, line width=1.2pt},
+    biarr/.style = {<->, draw=gray!70, line width=1.2pt},
+    titlebox/.style = {
+      rectangle, rounded corners=3pt,
+      draw=cBlue, line width=1.6pt, fill=cTitle,
+      minimum width=12cm, minimum height=0.85cm,
+      text centered, text width=11.8cm
+    },
+    probbox/.style = {
+      rectangle, rounded corners=3pt,
+      draw=cBlue!80, line width=1pt, fill=cProb,
+      minimum width=3.2cm, minimum height=0.82cm,
+      text centered, text width=3.0cm
+    },
+    methbox/.style = {
+      rectangle, rounded corners=3pt,
+      draw=cOrange, line width=1pt, fill=cMeth,
+      minimum width=2.9cm, minimum height=0.72cm,
+      text centered
+    },
+    labelbox/.style = {
+      rectangle, rounded corners=2pt,
+      draw=gray!60, line width=0.8pt, fill=cLabel,
+      minimum width=1.3cm, minimum height=0.7cm,
+      text centered, font=\footnotesize\sffamily
+    },
+  ]
+   
+  % ── 研究目标 ────────────────────────────────────────────────
+  \node[titlebox] (title) at (0,0)
+    {弱可压缩不混溶两相流高精度数值模拟方法研究};
+  \node[labelbox, left=5mm of title] {研究\\目标};
+   
+  % ── 科学问题 ────────────────────────────────────────────────
+  \node[probbox, below left=1.0cm and 4.1cm of title]  (p1)
+    {非物理压力振荡\\（Abgrall 原则）};
+  \node[probbox, below=1.0cm of title]                  (p2)
+    {分相密度正性保持\\（双曲性条件）};
+  \node[probbox, below right=1.0cm and 4.1cm of title] (p3)
+    {数值耗散与\\相界面弥散};
+  \node[labelbox, left=5mm of p1] {科学\\问题};
+   
+  \draw[arr] (title.south) -- (p1.north);
+  \draw[arr] (title.south) -- (p2.north);
+  \draw[arr] (title.south) -- (p3.north);
+   
+  % ── 研究方法 ────────────────────────────────────────────────
+  \node[methbox, below=0.9cm of p1] (m1) {理论分析};
+  \node[methbox, below=0.9cm of p2] (m2) {互相验证};
+  \node[methbox, below=0.9cm of p3] (m3) {数值实验};
+  \node[labelbox, left=5mm of m1]   {研究\\方法};
+   
+  \draw[arr]   (p1) -- (m1);
+  \draw[arr]   (p2) -- (m2);
+  \draw[arr]   (p3) -- (m3);
+  \draw[biarr] (m1) -- (m2);
+  \draw[biarr] (m2) -- (m3);
+   
+  \end{tikzpicture}
